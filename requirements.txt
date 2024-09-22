@@ -2,5 +2,11 @@ pandas
 numpy
 seaborn
 flask
+scikit-learn
 
 #-e .
+
+#`'-e .'` in `requirements.txt` is used for **editable installs**, 
+# allowing us to work on the project locally without reinstalling it after each change. 
+# In `setup.py`, it's removed because it's specific to local development and not required 
+# when packaging or deploying the project for others to use.
