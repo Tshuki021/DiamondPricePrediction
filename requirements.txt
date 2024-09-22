@@ -1,12 +1,8 @@
-pandas
-numpy
-seaborn
-flask
-scikit-learn
+# Required Libraries for Production
+pandas        # Data manipulation and analysis library
+numpy         # Fundamental package for numerical computation
+seaborn       # Statistical data visualization library built on top of matplotlib
+flask         # Lightweight web framework for building web applications
+scikit-learn  # Machine learning library for data mining and data analysis
 
-#-e .
-
-#`'-e .'` in `requirements.txt` is used for **editable installs**, 
-# allowing us to work on the project locally without reinstalling it after each change. 
-# In `setup.py`, it's removed because it's specific to local development and not required 
-# when packaging or deploying the project for others to use.
+# For local development, use '-e .' for editable installs if applicable

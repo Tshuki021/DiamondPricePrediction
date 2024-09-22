@@ -47,6 +47,15 @@ This project aims to predict the price of a diamond using various independent va
 │   ├── Model_Training.ipynb      # Model training and evaluation notebook.
 │
 ├── src
+│   ├── components
+│   │   ├── data_ingestion.py         # Handles data ingestion from the dataset.
+│   │   ├── data_transformation.py    # Automates the preprocessing pipeline (handling missing values, scaling, encoding).
+│   │   ├── model_trainer.py          # Automates model training, evaluation, and saving.
+│   │
+│   ├── pipelines
+│   │   ├── prediction_pipeline.py    # Pipeline for automating the prediction process.
+│   │   ├── training_pipeline.py      # Pipeline for automating the entire training process.
+│   │
 │   ├── exception.py             # Custom exception handling module.
 │   ├── logger.py                # Logger configuration for tracking project logs.
 │   ├── utils.py                 # Utility functions for model evaluation, saving, and loading objects.
@@ -85,20 +94,29 @@ This project aims to predict the price of a diamond using various independent va
     - Decision Tree Regressor
   - Evaluates model performance using `r2_score`.
 
-### 2. `src` Directory
+### 2. `src/components` Directory
+- **data_ingestion.py**: Manages the process of reading and splitting the dataset into training and test sets.
+- **data_transformation.py**: Handles the preprocessing of data, including imputation, scaling, and encoding for both numerical and categorical columns.
+- **model_trainer.py**: Automates the model training, evaluation, and saving of the best-performing model.
+
+### 3. `src/pipelines` Directory
+- **training_pipeline.py**: Automates the entire process of data ingestion, transformation, model training, and evaluation.
+- **prediction_pipeline.py**: Automates the prediction process by loading the preprocessor and trained model for new input data.
+
+### 4. `src` Directory
 - **exception.py**: Contains custom exception classes and functions for error handling throughout the project.
 - **logger.py**: Configures logging for capturing essential runtime information.
 - **utils.py**: Includes utility functions to evaluate models, save trained models, and load them for predictions.
 
-### 3. Web Application (`application.py`)
+### 5. Web Application (`application.py`)
 - Built using Flask.
 - Provides a user interface to input diamond attributes and predict the diamond price using the trained model.
 
-### 4. Templates
+### 6. Templates
 - **index.html**: Homepage of the web application.
 - **form.html**: Form to input diamond attributes for prediction.
 
-### 5. Requirements
+### 7. Requirements
 - **requirements.txt**: Lists all the dependencies and libraries required for the project, including Flask, scikit-learn, pandas, etc.
 
 ---
@@ -108,8 +126,8 @@ This project aims to predict the price of a diamond using various independent va
 During model training, multiple regression models were evaluated based on the `r2_score` metric. Below are the results for each model:
 
 ```plaintext
-Model Report : {'LinearRegression': 0.9344523096065713, 'Lasso': 0.934468560543525, 'Ridge': 0.9344522047348359, 'ElasticNet': 0.8536173350575074, 'DecisionTree': 0.9581454114033142}
-Best Model Model name : DecisionTree, R2 Score : 0.9581454114033142
+ Model Report : {'LinearRegression': 0.9344523096065713, 'Lasso': 0.934468560543525, 'Ridge': 0.9344522047348359, 'ElasticNet': 0.8536173350575074, 'DecisionTree': 0.9581454114033142}
+ Best Model name : DecisionTree, R2 Score : 0.9581454114033142
 ```
 
 The **Decision Tree Regressor** was selected as the best-performing model with an R² score of **0.9581**.
@@ -157,3 +175,5 @@ The **Decision Tree Regressor** was selected as the best-performing model with a
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
 ---
+
+Let me know if any further adjustments are needed!
