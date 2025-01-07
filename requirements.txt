@@ -4,5 +4,6 @@ numpy         # Fundamental package for numerical computation
 seaborn       # Statistical data visualization library built on top of matplotlib
 flask         # Lightweight web framework for building web applications
 scikit-learn  # Machine learning library for data mining and data analysis
+xgboost       # Machine learning library for XGBoost
 
 # For local development, use '-e .' for editable installs if applicable
