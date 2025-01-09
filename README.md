@@ -167,7 +167,7 @@ The **Decision Tree Regressor** was selected as the best-performing model with a
 ---
 
 ## Results
-- The **Decision Tree Regressor** was found to be the best model for predicting the price of diamonds with an R² score of **0.9581**.
+- The **Gradient Boosting Regressor** was found to be the best model for predicting the price of diamonds with an R² score of **0.9793**.
 
 ---
 

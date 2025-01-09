@@ -1,12 +1,11 @@
-## Basic Import
+
 import sys, os
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
-from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import GradientBoostingRegressor
 from src.exception import CustomException  # Custom exception handler
 from src.logger import logging  # Custom logging module
-from src.utils import save_object, evaluate_model  # Utility functions for model evaluation and saving
+from src.utils import save_object  # Utility function for saving the model
 from dataclasses import dataclass  # For creating configuration classes
 
 # Define the configuration for model training using a dataclass
@@ -21,8 +20,8 @@ class ModelTrainerConfig:
 # Create a class for Model Training
 class ModelTrainer:
     """
-    ModelTrainer class handles the process of training multiple regression models, 
-    evaluating their performance, and saving the best-performing model.
+    ModelTrainer class handles the process of training the GradientBoostingRegressor 
+    and saving the model.
     """
     def __init__(self):
         # Initialize the ModelTrainerConfig to access the model file path
@@ -32,10 +31,8 @@ class ModelTrainer:
         """
         Initiates the model training process which involves:
         1. Splitting the training and testing data into features (X) and target (y).
-        2. Training multiple regression models.
-        3. Evaluating each model using a predefined evaluation function.
-        4. Identifying the best model based on R-squared score.
-        5. Saving the best model as a pickle file.
+        2. Training the GradientBoostingRegressor with predefined parameters.
+        3. Saving the trained model as a pickle file.
 
         Args:
             train_array (numpy array): Training data containing features and target.
@@ -52,40 +49,30 @@ class ModelTrainer:
                 test_array[:, -1]  # Last column for the test target variable (y)
             )
 
-            # Dictionary of models to train and evaluate
-            models = {
-                'LinearRegression': LinearRegression(),
-                'Lasso': Lasso(),
-                'Ridge': Ridge(),
-                'ElasticNet': ElasticNet(),
-                'DecisionTree': DecisionTreeRegressor()
-            }
+            # Instantiate the GradientBoostingRegressor with predefined parameters
+            model = GradientBoostingRegressor(
+                learning_rate=0.1,
+                max_depth=5,
+                n_estimators=100
+            )
 
-            # Evaluate each model and return a report with the R-squared scores
-            model_report: dict = evaluate_model(X_train, y_train, X_test, y_test, models)
-            print(model_report)
-            print('\n================================================================================\n')
-            logging.info(f'Model Report : {model_report}')
+            logging.info('Training the GradientBoostingRegressor model')
+            # Train the model on the training data
+            model.fit(X_train, y_train)
 
-            # Get the highest model score from the report
-            best_model_score = max(sorted(model_report.values()))
+            # Evaluate the model performance on the test data (optional)
+            r2_score = model.score(X_test, y_test)
+            print(f'GradientBoostingRegressor R2 Score on Test Data: {r2_score}')
+            logging.info(f'GradientBoostingRegressor R2 Score on Test Data: {r2_score}')
 
-            # Find the name of the best-performing model
-            best_model_name = list(model_report.keys())[
-                list(model_report.values()).index(best_model_score)
-            ]
-
-            best_model = models[best_model_name]
-
-            print(f'Best Model Found, Model Name : {best_model_name}, R2 Score : {best_model_score}')
-            print('\n================================================================================\n')
-            logging.info(f'Best Model Found, Model name : {best_model_name}, R2 Score : {best_model_score}')
-
-            # Save the best-performing model as a pickle file
+            # Save the trained model as a pickle file
             save_object(
                 file_path=self.model_trainer_config.trained_model_file_path,
-                obj=best_model
+                obj=model
             )
+
+            print('\nModel training completed. The model has been saved successfully!')
+            logging.info('Model training completed. The model has been saved successfully!')
 
         except Exception as e:
             # Log and raise a custom exception in case of any errors during model training
