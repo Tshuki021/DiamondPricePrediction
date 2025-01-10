@@ -92,6 +92,11 @@ This project aims to predict the price of a diamond using various independent va
     - Ridge
     - ElasticNet
     - Decision Tree Regressor
+    - KNN Regressor
+    - Random Forest Regressor
+    - Ada Boost Regressor
+    - Gradient Boost Regressor
+    - XG Boost Regressor
   - Evaluates model performance using `r2_score`.
 
 ### 2. `src/components` Directory
