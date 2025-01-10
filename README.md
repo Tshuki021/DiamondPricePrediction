@@ -92,6 +92,11 @@ This project aims to predict the price of a diamond using various independent va
     - Ridge
     - ElasticNet
     - Decision Tree Regressor
+    - Ada Boost Regressor
+    - Random Forest Regressor
+    - KNN Regressor
+    - Gradient Boosting Regressor
+    - XGBoost Regressor
   - Evaluates model performance using `r2_score`.
 
 ### 2. `src/components` Directory
@@ -130,7 +135,7 @@ During model training, multiple regression models were evaluated based on the `r
  Best Model name : DecisionTree, R2 Score : 0.9581454114033142
 ```
 
-The **Decision Tree Regressor** was selected as the best-performing model with an R² score of **0.9581**.
+The **Gadient Boost Regressor** was selected as the best-performing model with an R² score of **0.9794**.
 
 ---
 
